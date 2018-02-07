@@ -30,7 +30,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import scala.Tuple2;
-
+/**
+ * 
+ * @description 
+ * @author 		董可伦
+ * @time   		2018年2月7日
+ *
+ */
 public class ChapterSixExample {
 	// function2 前两个为参数，后一个为返回类型
 	public static class SumInts implements Function2<Integer, Integer, Integer> {

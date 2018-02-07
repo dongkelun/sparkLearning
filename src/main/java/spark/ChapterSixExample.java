@@ -34,12 +34,16 @@ import scala.Tuple2;
 public class ChapterSixExample {
 	// function2 前两个为参数，后一个为返回类型
 	public static class SumInts implements Function2<Integer, Integer, Integer> {
+		private static final long serialVersionUID = -1389312827885394259L;
+
 		public Integer call(Integer x, Integer y) {
 			return x + y;
 		}
 	}
 
 	public static class VerifyCallLogs implements Function<CallLog[], CallLog[]> {
+		private static final long serialVersionUID = -8149902566062534340L;
+
 		public CallLog[] call(CallLog[] input) {
 			ArrayList<CallLog> res = new ArrayList<CallLog>();
 			if (input != null) {
@@ -76,6 +80,8 @@ public class ChapterSixExample {
 				return Arrays.asList(line.split("\\s+")).iterator();
 			}
 		}).filter(new Function<String,Boolean>(){
+
+			private static final long serialVersionUID = -5902690675669689015L;
 
 			@Override
 			public Boolean call(String line) throws Exception {
@@ -142,6 +148,9 @@ public class ChapterSixExample {
 		final Broadcast<String[]> signPrefixes = sc.broadcast(loadCallSignTable());
 		JavaPairRDD<String, Integer> countryContactCounts = contactCounts
 				.mapToPair(new PairFunction<Tuple2<String, Integer>, String, Integer>() {
+					private static final long serialVersionUID = 5882544304329909725L;
+
+					@SuppressWarnings({ "rawtypes", "unchecked" })
 					public Tuple2<String, Integer> call(Tuple2<String, Integer> callSignCount) {
 						String sign = callSignCount._1();
 						System.out.println(sign);
@@ -158,6 +167,8 @@ public class ChapterSixExample {
 		JavaPairRDD<String, CallLog[]> contactsContactLists = validCallSigns
 				//第一个为参数，后面两个返回类型
 				.mapPartitionsToPair(new PairFlatMapFunction<Iterator<String>, String, CallLog[]>() {
+					private static final long serialVersionUID = -2182439027709483137L;
+
 					public Iterator<Tuple2<String, CallLog[]>> call(Iterator<String> input) {
 						// List for our results.
 						ArrayList<Tuple2<String, CallLog[]>> callsignQsos = new ArrayList<Tuple2<String, CallLog[]>>();
@@ -184,6 +195,8 @@ public class ChapterSixExample {
 		sc.addFile(distScript);
 		JavaRDD<String> pipeInputs = contactsContactLists.values().map(new VerifyCallLogs())
 				.flatMap(new FlatMapFunction<CallLog[], String>() {
+					private static final long serialVersionUID = -8591597031377515228L;
+
 					public Iterator<String> call(CallLog[] calls) {
 						ArrayList<String> latLons = new ArrayList<String>();
 						for (CallLog call : calls) {
@@ -208,13 +221,14 @@ public class ChapterSixExample {
 		}
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	static Tuple2<String, CallLog[]> fetchResultFromRequest(ObjectMapper mapper,
 			Tuple2<String, ContentExchange> signExchange) {
 		String sign = signExchange._1();
 		ContentExchange exchange = signExchange._2();
 		return new Tuple2(sign, readExchangeCallLog(mapper, exchange));
 	}
-
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	static Tuple2<String, ContentExchange> createRequestForSign(String sign, HttpClient client) throws Exception {
 		ContentExchange exchange = new ContentExchange(true);
 		exchange.setURL("http://new73s.herokuapp.com/qsos/" + sign + ".json");
@@ -229,6 +243,7 @@ public class ChapterSixExample {
 	}
 
 	static String[] loadCallSignTable() throws FileNotFoundException {
+		@SuppressWarnings("resource")
 		Scanner callSignTbl = new Scanner(new File("./file/callsign_tbl_sorted"));
 		ArrayList<String> callSignList = new ArrayList<String>();
 		while (callSignTbl.hasNextLine()) {

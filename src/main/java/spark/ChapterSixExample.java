@@ -38,7 +38,7 @@ public class ChapterSixExample {
 			return x + y;
 		}
 	}
-
+//≤‚ ‘≥ÂÕª
 	public static class VerifyCallLogs implements Function<CallLog[], CallLog[]> {
 		public CallLog[] call(CallLog[] input) {
 			ArrayList<CallLog> res = new ArrayList<CallLog>();

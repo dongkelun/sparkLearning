@@ -169,7 +169,6 @@ public class ChapterSixExample {
 		//countryContactCounts.saveAsTextFile(outputDir + "/countries.txt");
 		System.out.println("Saved country contact counts as a file");
 
-		// Use mapPartitions to re-use setup work.
 		JavaPairRDD<String, CallLog[]> contactsContactLists = validCallSigns
 				//第一个为参数，后面两个返回类型
 				.mapPartitionsToPair(new PairFlatMapFunction<Iterator<String>, String, CallLog[]>() {

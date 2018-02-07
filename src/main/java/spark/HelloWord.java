@@ -12,9 +12,6 @@ public class HelloWord {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-		
-		
 		System.out.println(args.length);
 		SparkConf conf = new SparkConf().setMaster("local").setAppName("My App");
 		JavaSparkContext sc = new JavaSparkContext(conf);

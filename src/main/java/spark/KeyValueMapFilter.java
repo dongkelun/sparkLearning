@@ -30,9 +30,6 @@ public class KeyValueMapFilter {
 		// 读取我们的输入数据
 		JavaRDD<String> input = sc.textFile(inputFile);
 		PairFunction<String, String, String> keyData = new PairFunction<String, String, String>() {
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override

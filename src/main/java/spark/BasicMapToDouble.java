@@ -24,6 +24,8 @@ public class BasicMapToDouble {
 		JavaRDD<Integer> rdd = sc.parallelize(Arrays.asList(1, 2, 3, 4));
 		rdd.filter(new Function<Integer,Boolean>(){
 
+			private static final long serialVersionUID = 1L;
+
 			public Boolean call(Integer v1) throws Exception {
 				// TODO Auto-generated method stub
 				return null;
